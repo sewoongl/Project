@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  <!-- mybatis가 읽어드릴 대상이기에 무조건 doctype에 있어야함 -->
+<mapper namespace="swl">
+
+<!-- select 문 -->
+	<select id="admList" resultType="HashMap">
+		select * from `users` where delYn = 'N'
+	</select>
+	
+	<select id="login" parameterType="HashMap" resultType="HashMap">
+		select * from users where id = #{id} and Password = #{Password} limit 1
+		</select>
+	
+	<select id="msgList" resultType="HashMap">
+		select * from `message` 
+			where delYn = 'N'
+	</select>
+	
+	<select id="msgOne" parameterType="HashMap" resultType="HashMap">
+		select * from `message` 
+			where msgNo = #{msgNo}
+	</select>
+	
+	<select id="contactList" resultType="HashMap">
+		select * from `profile` where delYn = 'N'
+	</select>
+	
+<!-- insert 문 -->
+	<insert id="join" parameterType="HashMap">
+		insert into `users` 
+			(userName, id, `password`, regDate) 
+		values 
+			(#{userName}, #{id}, #{password}, DATE_FORMAT(NOW(),'%Y%m%d'))
+	</insert>
+	
+	<insert id="msgSend" parameterType="HashMap">
+		insert into `message` 
+			(msgName, msgEmail, `msgContents`, regDate) 
+		values 
+			(#{msgName}, #{msgEmail}, #{msgContents}, DATE_FORMAT(NOW(),'%Y%m%d'))
+	</insert>
+	
+<!-- update 문 -->	
+	<update id="userDel" parameterType="HashMap">
+	  	update `users`
+	  		set delYn = 'Y'
+	  	where userNo = #{userNo}
+  	</update>
+	
+	<update id="msgDel" parameterType="HashMap">
+	  	update `message`
+	  		set delYn = 'Y'
+	  	where msgNo = #{msgDel}
+  	</update>
+  	
+  	<update id="level" parameterType="HashMap">
+	  	update `users`
+	  		set level = #{level}
+	  	where userNo = #{userNo}
+  	</update>
+  	
+</mapper>
