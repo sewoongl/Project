@@ -93,12 +93,13 @@
                     <p>가 입 정 보</p>
                 </div>
                 <div class="myinfo-box-contents">
+                
                     <div class="myinfo-box-contents-row">
                         <div class="contents-row-left">
                             <p>email :</p>
                         </div>
                         <div class="contents-row-right">
-                            <p>tpdnddl12@naver.com</p>
+                            <p id="info_mail"></p>
                         </div>
                     </div>
                     <div class="myinfo-box-contents-row">
@@ -190,6 +191,8 @@
     
 <script src="js/main.js"></script>
 <script>
+	sesssionData();
+
     $("#leave-member").on("click", function(){
         alert("잘가라 즐거웠다.");
         location.href="index.html";
@@ -216,6 +219,23 @@
     $("#membership").on("click", function(){
         location.href = 'admin.html';
     });
+    
+    function sesssionData(){
+	    $.ajax({
+	    	type : "post",
+	    	url : "/swl/infoData"
+	    }).done(function(data){
+	    	var d = JSON.parse(data).user;
+			if(d != null){
+				$("#info_mail").text(d.id);
+				if(d.level != 1){
+					$("#message-box").css("display", "none");
+					$("#membership").hide();
+					
+				} 
+			}
+	    });
+    }
 </script>
 
 </body>

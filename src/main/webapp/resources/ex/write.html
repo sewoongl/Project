@@ -13,6 +13,7 @@
 	
 	<link rel="shortcut icon" href="img/icon_goodee.png">
     <link rel="stylesheet" type="text/css" href="css/write.css">
+    <link rel="stylesheet" type="text/css" href="css/dls.css">
     
 </head>
 
@@ -26,28 +27,34 @@
            
             <div class="select-write-type">
                 <select class="form-control" id="sel1">
-                    <option disabled selected>Category</option>
-                    <option>Java</option>
-                    <option>Python</option>
-                    <option>Javascript</option>
-                    <option>HTML</option>
-                    <option>CSS</option>
-                    <option>LINUX</option>
+                    <option disabled selected value="Category">Category</option>
+                    <option value="Java">Java</option>
+                    <option value="Python">Python</option>
+                    <option value="Javascript">Javascript</option>
+                    <option value="HTML">HTML</option>
+                    <option value="CSS">CSS</option>
+                    <option value="LINUX">LINUX</option>
                 </select>
             </div>
             
-            <div class="write-title-con">
-                <input id="title" type="text" class="form-control" placeholder="제목을 입력하세요.">
-            </div>
+           <section id="input">
+	            <div class="write-title-con">
+	                <input type="text" class="form-control" id="viewTitle" placeholder="제목을 입력하세요.">
+	            </div>
+				<textarea id="edit" name="edit"></textarea>
+			</section>
             
-            <form>
-                <textarea name="edit" id="edit" required>
-                </textarea>
-            </form>       
-                 
-            <div class="write-button-con">
-                <input id="write-btn" type="button" class="btn btn-primary" value="등록">
-            </div>
+            <form id="boardForm" action="" method="post" enctype="multipart/form-data">
+            	<input type="hidden" id="category" name="category">
+            	<input type="hidden" id="title" name="title">
+            	<input type="hidden" id="content" name="content">
+	            <div class="write-input-file dls-matop">
+	                <input type="file" name="file" class="form-control" multiple="multiple">
+	            </div>
+	            <div class="write-button-con">
+	                <input id="write-btn" type="button" class="btn btn-primary" value="등록">
+	            </div>
+			</form>
             
             
         </div>
@@ -70,22 +77,38 @@
 	
 	$("#write-btn").on("click", function(){
 		// 데이터 가져오기
-		var title = $("#title").val();
+		var category = $("#writeCategory").val();
+		var title = $("#writeTitle").val();
 		var content = CKEDITOR.instances['edit'].getData();
 		
 		// 데이터 초기화 하기
-		$("#title").val("");
+		$("#writeTitle").val("");
 		CKEDITOR.instances['edit'].setData("");
 		
+		
 		// 서버로 데이터 전송하기
+		$("#writeCategory").val(category);
+		$("#writeTitle").val(title);
+		$("#content").val(content);
+		
+		
 		$.ajax({
-			url : "insert",
-			data : {"title" : title, "contents" : content},
-			type : "POST"
+			url : "/swl/insert",
+			data : new FormData($("#boardForm")[0]),
+			type : "POST",
+			contentType:false,
+			cache:false,
+			processData:false
 		}).done(function(data){
-			alert("작성이 완료되었습니다.");
-			location.href = "/swl/resources/ex/index.html"
+			console.log(data);
+			if(data.status == 1){
+				alert("게시글이 저장되었습니다.");
+				location.href="index.html"
+			}else {
+				alert("게시글 저장 실패");
+			}
 		});
+		
 	});
 	
 </script>

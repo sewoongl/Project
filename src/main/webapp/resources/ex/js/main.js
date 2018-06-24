@@ -1,3 +1,5 @@
+sesssionData();
+
 $("#login").on("click", function(){
     $("#layer").css("display", "block");
     $("#container").css("opacity", "0.5");
@@ -8,25 +10,53 @@ $("#layer").on("click", function(){
     layerOut();
 });
 
-$("#loginBtn").on("click", function(e){
+$("#formX").submit(function(e){
     layerOut();
-    e.preventdefault()
+    e.preventDefault();
+    
     var id = $("#email").val();
     var password = $("#password").val();
 //    console.log("id :" + id);
 //    console.log("password :" + password);
-//    $.ajax({
-//
-//    }).done(function(data){
-    	$("#login").css("display", none);
-        $("#main-logoutbtn").css("display", block);
-        $("#write-btn").css("display", block);
-//    });
+    $.ajax({
+    	type : "post",
+    	url : "/swl/login",
+    	data : {"id" : id, "password" : password }
+    }).done(function(data){
+    	var d = JSON.parse(data);
+    	console.log(d);
+    	if(d.status!=0){
+    		iflogin();
+    	}else if(d.status!=1){
+    		alert("정보가 맞지 않습니다.");
+    	}
+    });
 });
 
 $("#joinBtn").on("click", function(e){
     location.href="join.html";
 })
+
+function iflogin(){
+	$("#login").css("display", "none");
+    $("#main-logoutbtn").css("display", "block");
+    $("#write-btn").css("display", "block");
+    $("#page_myinfo").css("display", "block");
+}
+
+function sesssionData(){
+    $.ajax({
+    	type : "post",
+    	url : "/swl/infoData"
+    }).done(function(data){
+    	var d = JSON.parse(data).user;
+		if(d != null){
+			iflogin();
+		}
+    });
+}
+
+
 
 
 /* 공통부분 */

@@ -18,7 +18,7 @@
 	<link rel="stylesheet" type="text/css" media = "only screen and (max-width: 1259px)" href="css/laptop.css">
 	<link rel="stylesheet" type="text/css" media = "only screen and (max-width: 768px)" href="css/tablet.css">
 	<link rel="stylesheet" type="text/css" media = "only screen and (max-width: 425px)" href="css/mobile.css">
-	<script src="lib/jquery.min.js"></script>
+<!-- 	<script src="lib/jquery.min.js"></script> -->
  
 </head>
 <body>
@@ -46,7 +46,7 @@
                 </div>
                 <div>
                     <a href="myinfo.html">
-                        <h3 class="pageMove dis_none">my info</h3>
+                        <h3 id="page_myinfo" class="pageMove dis_none">my info</h3>
                     </a>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                             <a class="btn btn-default" href="#" id="main-loginbtn">Login</a>
                         </div>
                         <div id="logout">
-                            <a class="btn btn-default dis_none" href="#" id="main-logoutbtn">Logout</a>
+                            <a class="btn btn-default dis_none" href="/swl/logout" id="main-logoutbtn">Logout</a>
                         </div>
                     </div>
                    <div id="div_hr">
@@ -87,108 +87,9 @@
             
             <!--  right-2 portfolio start  -->
             <div id="right-2">
-                <article class="arc">
-                    
-                    <!--#1-->
-                    <div class="arc-con dls-third">
-                        <div class="arc-box">
-                            <div class="arc-box-img" id="java">
-                                <a href="#" ><img src="./img/java.jpg"></a>
-                            </div>
-                            <div class="arc-box-text">
-                                <h5>JAVA 0525(Constructor)</h5>
-                                <p>특징 : 클래스에는 반드시 생성자가 존재해야한다. 인스턴스 생성시 딱 한번 호출된다. 인스턴스 변수의 초기화가 목적이다.</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!--#2-->
-                    <div class="arc-con dls-third">
-                        <div class="arc-box">
-                            <div class="arc-box-img" id="html">
-                                <a href="#" ><img src="./img/html.png"></a>
-                            </div>
-                            <div class="arc-box-text">
-                                <h5>HTML 0423 </h5>
-                                <p >HTML 이란 Hyper Text Markup Language 의 약자로써 월드와이드웹 문서를 작성하는 Markup Language 입니다. HTML은 여러 </p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!--#3-->
-                    <div class="arc-con dls-third">
-                        <div class="arc-box">
-                            <div class="arc-box-img" id="python">
-                                <a href="#" ><img src="img/python.png"></a>
-                            </div>
-                            <div class="arc-box-text">
-                                <h5>Python 0327(배열)</h5>
-                                <p > List Data (배열) : [속성]
-                                   - 시퀀스 자료형, 여러 데이터들의 집합
-                                   - Int, Float 같은 다양한 데이터 Type 포함
-                                   - 인덱싱 
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-                
-                <article class="arc">
-                   
-                    <!--#4-->
-                    <div class="arc-con dls-third">
-                        <div class="arc-box">
-                            <div class="arc-box-img" id="jquery">
-                                <a href="#" ><img src="img/jquery.jpg"></a>
-                            </div>
-                            <div class="arc-box-text">
-                                <h5>Jquery (정의)</h5>
-                                <p >jQuery는 클라이언트 측 HTML 스크립팅을 간소화하기 위해 고안된 크로스 플랫폼 자바스크립트 라이브러리다. jQuery는 </p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!--#5-->
-                    <div class="arc-con dls-third">
-                        <div class="arc-box">
-                            <div class="arc-box-img" id="linux">
-                                <a href="#" ><img src="img/linux.png"></a>
-                            </div>
-                            <div class="arc-box-text">
-                                <h5>Linux jenkins설치하기</h5>
-                                <p> 1. yum install -y httpd 
-                                       yum localinstall javarpm파일 (환경변수까지 모두 적용시켜준다.)
-                                    2. yum install -y wget setroubleshoot
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!--#6-->
-                    <div class="arc-con dls-third">
-                        <div class="arc-box">
-                            <div class="arc-box-img" id="css">
-                                <a href="#" ><img src="img/css.png"></a>
-                            </div>
-                            <div class="arc-box-text">
-                                <h5>CSS animation 예제</h5>
-                                
-                                <p >p {
-                                  animation-duration: 3s;
-                                  animation-name: slidein;
-                                }
-
-                                @keyframes slidein {
-                                  from {
-                                    margin-left: 100%;
-                                    width: 300% d}
-                                to {}
-                                </p>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </article>
+               
+                <!-- 데이터넣는곳 -->
+                <article class="arc"></article>
                 
                  <div id="writebtn">
                     <input type="button" id="write-btn" class="btn btn-primary dis_none"  value="글쓰기">
@@ -319,7 +220,7 @@
    
    <!-- 로그인 모달 -->
     <div id="login-box">
-        <form action="/swl/userLogin" method="post" >
+        <form id="formX">
             <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                 <input id="email" type="email" class="form-control" name="email" placeholder="Email" required="required">

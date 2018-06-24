@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,18 +29,18 @@ public class userController {
 	public ModelAndView users(
 			@PathVariable("menu") String menu,
 			@PathVariable("type") String type,
-			HttpServletRequest req) {
+			HttpServletRequest req, HttpSession ses) {
 
-		return usi.users(menu, type, req);
+		return usi.users(menu, type, req, ses);
 	}
 	
 	@RequestMapping("/join/{menu}/{type}")
 	public ModelAndView join(
 			@PathVariable("menu") String menu,
 			@PathVariable("type") String type,
-			HttpServletRequest req) {
+			HttpServletRequest req, HttpSession ses) {
 		
-		return usi.users(menu, type, req);
+		return usi.users(menu, type, req, ses);
 	}
 	
 	@RequestMapping("/userDel/{menu}/{type}")
@@ -63,18 +64,32 @@ public class userController {
 	public ModelAndView msg(
 			@PathVariable("menu") String menu,
 			@PathVariable("type") String type,
-			HttpServletRequest req) {
+			HttpServletRequest req, HttpSession ses) {
 		
-		return usi.users(menu, type, req);
+		return usi.users(menu, type, req, ses);
 	}
 	
 	@RequestMapping("/msgList/{menu}/{type}")
 	public ModelAndView msgList(
 			@PathVariable("menu") String menu,
 			@PathVariable("type") String type,
-			HttpServletRequest req) {
+			HttpServletRequest req, HttpSession ses) {
 		
-		return usi.users(menu, type, req);
+		return usi.users(menu, type, req, ses);
 	}
 	
+	@RequestMapping("/infoData")
+	public ModelAndView infoData(HttpSession ses) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		Object user = ses.getAttribute("user");
+		map.put("user", user);
+		
+		return HttpUtil.makeJsonView(map);
+	}
+	
+	@RequestMapping("/joinSes")
+	public ModelAndView joinSes(HttpServletRequest req, HttpSession session) {
+		return HttpUtil.makeJsonView(usi.joinSes(req,session));
+	}
 }

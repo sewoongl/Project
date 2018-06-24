@@ -25,6 +25,10 @@ public class userDao implements userDaoInterface {
 			result.put("result", session.selectList(param.get("menu") + ".admList"));
 		}
 		
+		else if ("join2".equals(param.get("type"))) {
+			result.put("result", session.selectOne(param.get("menu") + ".joinSes", param.get("id")));
+		}
+		
 		else if ("join".equals(param.get("type"))) {
 			result.put("result", session.insert(param.get("menu") + ".join", param.get("param"))); 
 		}
@@ -44,6 +48,7 @@ public class userDao implements userDaoInterface {
 		else if("level".equals(param.get("type"))) {
 			result.put("result", session.delete(param.get("menu") + ".level", param.get("param")));
 		}
+		
 		return result;
 	}
 

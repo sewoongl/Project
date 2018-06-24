@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimum-scale=1.0" />
+	<title> Title </title>
+	<!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- jQuery library -->
+	<script type="text/javascript" src="/swl/webjars/jquery/3.3.1/dist/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+	
+	<link rel="shortcut icon" href="img/icon_goodee.png">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/dls.css">
+	<link rel="stylesheet" type="text/css" href="css/admin.css">
+	<link rel="stylesheet" type="text/css" href="css/desktop.css">
+	<link rel="stylesheet" type="text/css" media = "only screen and (max-width: 1259px)" href="css/laptop.css">
+	<link rel="stylesheet" type="text/css" media = "only screen and (max-width: 768px)" href="css/tablet.css">
+	<link rel="stylesheet" type="text/css" media = "only screen and (max-width: 425px)" href="css/mobile.css">
+	<script src="lib/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    <div id="container">
+       <!-- left area -->
+        <div id="left">
+            <div id="img-box">
+                <img src="img/profile.jpg">
+            </div>
+            <div class="left-1">
+                <div>
+                    <a href="index2.html#right-1" class="sh">
+                        <h3 class="pageMove">portfolio</h3>
+                    </a>
+                </div>
+                
+                <div>
+                    <a href="index2.html#right-3" class="sh">
+                        <h3 class="pageMove">about</h3>
+                    </a>
+                </div>
+                
+                <div>
+                    <a href="index2.html#right-4" class="sh">
+                        <h3 class="pageMove">contact</h3>
+                    </a>
+                </div>
+                <div>
+                    <a href="myinfo.html" class="sh">
+                        <h3 class="pageMove">my info</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- right area -->
+        <div id="right">
+            <!--  right-1 start -->
+            <div id="right-1">
+                <hgroup id="hp">
+                   <div id="hp-left">
+                        <div id="leftMenu">
+                            <img src="./img/baseline-dehaze-24px.svg">
+                        </div>
+                    </div>
+                    <div id="hp-right">
+                        <img src="./img/profile-2.jpg">
+                    </div>
+                </hgroup>
+            </div>
+            <!--  right-1 end  --> 
+             <!-- message box -->
+            <div class="container">
+                <div id="admin-top">
+                    <div id="admin-left"><h2>회원 관리</h2></div>
+                    <div id="admin-right">
+                        <input type="button" id="banish" class="btn btn-danger" value="수정">
+                        <input type="button" id="cancle" class="btn btn-warning" value="취소">  
+                        <input type="button" id="confirm" class="btn btn-info" value="확인"> 
+                    </div>    
+                </div>            
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th class="admin-check-box">추방</th>
+                            <th>가입일시</th>
+                            <th>이름</th>
+                            <th>이메일</th>
+                            <th>레벨</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admList">
+                        
+                    </tbody>
+                </table>
+                
+                <div class="paging-box">
+                    <ul class="pagination">
+                        <li><a href="#">&lt;</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">&gt;</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- -------------------left copy 부분---------------- -->
+        <div id="left-copy" class="ani">
+            <div class="left-1">
+                <div>
+                    <a href="index2.html#right-1">
+                        <h3 class="pageMove">portfolio</h3>
+                    </a>
+                </div>
+                
+                <div>
+                    <a href="index2.html#right-3" >
+                        <h3 class="pageMove">about</h3>
+                    </a>
+                </div>
+                
+                <div>
+                    <a href="index2.html#right-4" >
+                        <h3 class="pageMove">contact</h3>
+                    </a>
+                </div>
+                
+                <div>
+                    <a href="myinfo.html">
+                        <h3 class="pageMove">my info</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- 풋터영역 -->    
+        <footer>
+            <div>
+                alright reserved @DLS alright reserved<br>
+                made by hyunsub, sewoong, jeongwon
+            </div>
+        </footer>
+    </div>
+<script src="js/main.js"></script>
+<script>
+    <!-- 추방 버튼 클릭 했을 경우 --> 
+    $("#banish").on("click", function(){
+        $("#confirm").css("display","block");
+        $("#cancle").css("display","block");
+        $("#banish").css("display","none");
+        $(".admin-check-box").css("display","block");
+        $(".admin-table>thead>tr>th:nth-child(1)").css("width","calc(7% + 80px)");
+        $(".admin-table>thead>tr>th:nth-child(2)").css("width","28%");
+        $(".admin-table>thead>tr>th:nth-child(3)").css("width","20%");
+        $(".admin-table>thead>tr>th:nth-child(4)").css("width","35%");
+        $(".admin-table>thead>tr>th:nth-child(5)").css("width","8%");
+        
+        $.ajax({
+        	
+        })
+        
+   });
+    <!-- 확인 버튼 클릭 했을 경우 -->
+    $("#confirm").on("click", function(){
+        $("#banish").css("display","block");
+        $("#confirm").css("display","none");
+        $("#cancle").css("display","none");
+        $(".admin-check-box").css("display","none");
+    });
+    <!-- 취소 버튼 클릭 했을 경우 -->
+    $("#cancle").on("click", function(){
+        $("#banish").css("display","block");
+        $("#confirm").css("display","none");
+        $("#cancle").css("display","none");
+        $(".admin-check-box").css("display","none");
+    });
+
+    $.ajax({
+    	type : "post",
+    	url : "/swl/user/swl/list"
+    }).done(function(data){
+    	var d = JSON.parse(data);
+    	var dt = d.result;
+    	var level = '';
+    	
+    	$("#admList").empty();
+    	for(var i = 0; i < dt.length; i++){
+    			
+    			switch(dt[i].level){
+    				case 1:
+    					level = '<select class="hi" id="lvl'+ dt[i].userNo +'"><option selected value="1">관리자</option><option value="2">일반</option></select>';
+    					break;
+    				case 2:
+    					level = '<select class="hi" id="lvl'+ dt[i].userNo +'"><option value="1">관리자</option><option selected value="2">일반</option></select>';
+    					break;
+    			}
+    			
+				var html = "<tr id='rows"+ dt[i].userNo +"' >";
+    			html += "<td class='admin-check-box'>";
+    			html += "<input type='checkbox' name='banish-check' value='"+ dt[i].userNo + "'>";
+    			html += "</td>";
+    			html += "<td>" + dt[i].regDate + "</td>";
+    			html += "<td>" + dt[i].userName + "</td>";
+    			html += "<td>" + dt[i].id + "</td>";
+    			html += "<td>" + level + "</td>";
+    			html += "</tr>";
+    		$("#admList").append(html);
+    	}
+    });
+    
+    
+    
+    $("#confirm").on("click", function(){
+    	var checked = $("#admList input:checked").val();
+    	var lvlChange = $("#admList option:checked").val();
+    	if(checked != ""){
+	    	$.ajax({
+	    		type : "post",
+	    		url : "/swl/userDel/swl/userDel",
+	    		data : {"userNo" : checked}
+	    	}).done(function(data) {
+	    		location.href="/swl/resources/ex/admin.html";
+	    	});
+	    	
+	    	}
+// 		console.log("lvlChange: " + lvlChange)
+//     	if(lvlChange != ""){
+//     		console.log("들어와라!");
+//     		console.log("다타"+data);
+//  			$.ajax({
+//  				 type : "post",
+//  				 url : "/swl/level/swl/level",
+// 				 data : {"level" : lvlChange}
+//  			 }).done(function(data){
+					
+// //  				location.href="/swl/resources/ex/admin.html";
+//  			 });
+//     	}
+//     	else{
+//     		location.href="/swl/resources/ex/admin.html";
+//     	}
+    });
+</script>
+
+</body>
+</html>

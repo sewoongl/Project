@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-public interface boardServiceInterface {
-	
+public interface HomeServiceInterface {
 	public HashMap<String,Object> fileupload(MultipartHttpServletRequest req, HashMap<String, Object> paramMap);
 }
