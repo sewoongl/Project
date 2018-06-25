@@ -55,16 +55,15 @@ public class HomeController {
 	
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
 	public void insert(@RequestParam("file") MultipartFile[] files, HttpServletRequest req, HttpServletResponse res) {
-		System.out.println(files.length);
 		String category = req.getParameter("category");
 		String title = req.getParameter("title");
 		String contents = req.getParameter("content");
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		
+		paramMap.put("category", category);
 		paramMap.put("boardTitle", title);
 		paramMap.put("boardContents", contents);
 		paramMap.put("userNo", 1);
-		paramMap.put("category", category);
 		logger.info(paramMap.toString());
 		int status = session.insert("swl.boardInsert",paramMap);
 		

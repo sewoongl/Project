@@ -115,7 +115,7 @@
                             <p>가입일 :</p>
                         </div>
                         <div class="contents-row-right">
-                            <p>2018-05-22</p>
+                            <p id="info_regDate"></p>
                         </div>
                     </div>
                     
@@ -141,7 +141,6 @@
                 </div>
                 <div class="input-group join-box-input">
                     <input type="password" class="form-control" id="change_pw" name="pass" placeholder="변경하실 비밀번호를 입력하세요.">
-                    <input type="password" class="form-control" id="change_pw_check" placeholder="비밀번호 확인">
                 </div>
                 <div class="join-btn-box">
                 <input type="submit" id="submit_change" class="btn btn-success" value="변경">
@@ -192,7 +191,6 @@
 <script src="js/main.js"></script>
 <script>
 	sesssionData();
-
     $("#leave-member").on("click", function(){
         alert("잘가라 즐거웠다.");
         location.href="index.html";
@@ -205,11 +203,6 @@
     $("#change-btn").on("click", function(){
         $("#layer").show();
         $(".pw-change-box").show();
-    });
-    
-    $("#submit_change").on("click", function(){
-        alert("변경되었습니다.");
-        layerOut();
     });
     
     $("#message-box").on("click", function(){
@@ -228,12 +221,39 @@
 	    	var d = JSON.parse(data).user;
 			if(d != null){
 				$("#info_mail").text(d.id);
+				$("#info_regDate").text(d.regDate);
+				console.log(d.userNo);
 				if(d.level != 1){
 					$("#message-box").css("display", "none");
 					$("#membership").hide();
 					
 				} 
 			}
+			$("#submit_change").on("click", function(){
+		        alert("변경되었습니다.");
+		        var changePw = $("#change_pw").val();
+		        
+		        $.ajax({
+		        	type : "post",
+		        	url : "/swl/changePw/swl/changePw",
+		        	data : {"password" : changePw, "userNo" : d.userNo}
+		        }).done(function(data){
+		        
+		        });
+		    });
+			$("#leave-member").on("click", function(){
+// 				alert("잘가라 즐거웠다.");
+				$.ajax({
+		    		type : "post",
+		    		url : "/swl/infoDel/swl/infoDel",
+		    		data : {"userNo" : d.userNo}
+		    	}).done(function(data) {
+		    		alert("잘가라 즐거웠다.");
+		    		location.href = 'index.html';
+		    	});
+		    });
+			
+			
 	    });
     }
 </script>

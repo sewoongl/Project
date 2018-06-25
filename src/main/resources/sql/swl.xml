@@ -31,6 +31,31 @@
 		select * from users where id = #{id} and delYn ='N'
 	</select>
 	
+<!-- =====================================Resume/Profile============================================== -->
+	<select id="resumeI" resultType="HashMap">
+		select * from resume where delYn = 'N' and type = 'I'
+	</select>
+	
+	<select id="resumeR" resultType="HashMap">
+		select * from resume where delYn = 'N' and type = 'R'
+	</select>
+	
+	<select id="resumeS" resultType="HashMap">
+		select * from resume where delYn = 'N' and type = 'S'
+	</select>
+	
+	<select id="profileList" resultType="HashMap">
+		select * from profile where profileNo = 1
+	</select>
+
+<!-- =====================================보드 리스트 불러오는부분============================================== -->	
+	<select id="mainboard" resultType="HashMap">
+		select b.boardNo, boardTitle, boardContents, fileURL 
+			from board as b
+			left outer join files as f
+			on (b.boardNo = f.boardNo) where b.delYn = 'N'
+	</select>	
+	
 <!-- insert 문 -->
 	<insert id="join" parameterType="HashMap">
 		insert into `users` 
@@ -84,6 +109,18 @@
 	  	update `users`
 	  		set level = #{level}
 	  	where userNo = #{userNo}
+  	</update>
+  	
+  	<update id="changePw" parameterType="HashMap">
+  		update `users`
+  			set password = #{password}
+  		where userNo = #{userNo}
+  	</update>
+  	
+  	<update id="infoDel" parameterType="HashMap">
+  		update `users`
+  			set delYn = 'Y'
+  		where userNo = #{userNo}
   	</update>
   	
 </mapper>

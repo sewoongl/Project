@@ -17,11 +17,11 @@ public class userDao implements userDaoInterface {
 	public HashMap<String, Object> users(HashMap<String, Object> param) {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		
-//		System.out.println(param);
-//		System.out.println(param.get("type"));
-//		System.out.println(param.get("menu"));
+		System.out.println("다오파람 :" + param);
+		System.out.println("다오타입 :" + param.get("type"));
+		System.out.println("다오메뉴 :" + param.get("menu"));
 		
-		if ("list".equals(param.get("type"))) {
+		if ("usersList".equals(param.get("type"))) {
 			result.put("result", session.selectList(param.get("menu") + ".admList"));
 		}
 		
@@ -47,6 +47,14 @@ public class userDao implements userDaoInterface {
 		
 		else if("level".equals(param.get("type"))) {
 			result.put("result", session.delete(param.get("menu") + ".level", param.get("param")));
+		}
+		
+		else if("changePw".equals(param.get("type"))) {
+			result.put("result", session.update(param.get("menu") + ".changePw", param.get("param")));
+		}
+		
+		else if("infoDel".equals(param.get("type"))) {
+			result.put("result", session.delete(param.get("menu") + ".infoDel", param.get("param")));
 		}
 		
 		return result;

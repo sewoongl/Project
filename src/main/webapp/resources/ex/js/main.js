@@ -138,6 +138,7 @@ $("#contact_info").submit(function(e){
 			url : "/swl/msg/swl/msgSend",
 			data : d
 		}).done(function(data){
+			alert("메시지가 전송 되었습니다.");
 			location.href = 'index.html';
 		});
 	}

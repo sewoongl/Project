@@ -24,9 +24,9 @@
         <div class="top-img"></div>
         
         <div class="write-con">
-           
+           <form id="boardForm" action="" method="post" enctype="multipart/form-data">
             <div class="select-write-type">
-                <select class="form-control" id="sel1">
+                <select class="form-control" id="boardCategory">
                     <option disabled selected value="Category">Category</option>
                     <option value="Java">Java</option>
                     <option value="Python">Python</option>
@@ -39,12 +39,12 @@
             
            <section id="input">
 	            <div class="write-title-con">
-	                <input type="text" class="form-control" id="viewTitle" placeholder="제목을 입력하세요.">
+	                <input type="text" class="form-control" id="boardTitle" placeholder="제목을 입력하세요.">
 	            </div>
 				<textarea id="edit" name="edit"></textarea>
 			</section>
             
-            <form id="boardForm" action="" method="post" enctype="multipart/form-data">
+            
             	<input type="hidden" id="category" name="category">
             	<input type="hidden" id="title" name="title">
             	<input type="hidden" id="content" name="content">
@@ -77,20 +77,22 @@
 	
 	$("#write-btn").on("click", function(){
 		// 데이터 가져오기
-		var category = $("#writeCategory").val();
-		var title = $("#writeTitle").val();
+		var category = $("#boardCategory").val();
+		var title = $("#boardTitle").val();
 		var content = CKEDITOR.instances['edit'].getData();
 		
 		// 데이터 초기화 하기
-		$("#writeTitle").val("");
+		$("#boardTitle").val("");
 		CKEDITOR.instances['edit'].setData("");
 		
 		
 		// 서버로 데이터 전송하기
-		$("#writeCategory").val(category);
-		$("#writeTitle").val(title);
+		$("#category").val(category);
+		$("#title").val(title);
 		$("#content").val(content);
-		
+// 		"category" : category, 
+// 		"title" : title, 
+// 		"content" : content
 		
 		$.ajax({
 			url : "/swl/insert",

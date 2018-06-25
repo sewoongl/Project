@@ -34,10 +34,10 @@ public class FileService implements FileServiceInterface {
 			
 			try {
 				byte[] bytes = files[i].getBytes();
-				String path = "C://Users/SNLee/Documents/coding/code/Eclipse/workspace/Project/src/main/webapp/resources/" + dir + "/";
+				String path = "D://eclipse/workspace/Project/src/main/webapp/resources/" + dir + "/";
 //				String path = "/var/www/html/resources/" + dir + "/"; 
 //				String path = req.getSession().getServletContext().getRealPath("/") + "resources/" + dir + "/";
-				String dns = "http://localhost:8080/shs/";
+				String dns = "http://localhost:8080/swl/";
 				
 				File dirF = new File(path);
 				

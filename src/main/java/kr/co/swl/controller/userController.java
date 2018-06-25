@@ -25,6 +25,15 @@ public class userController {
 	@Autowired
 	userServiceInterface usi;
 	
+	@RequestMapping("/usersList/{menu}/{type}")
+	public ModelAndView usersList(
+			@PathVariable("menu") String menu,
+			@PathVariable("type") String type,
+			HttpServletRequest req) {
+
+		return usi.usersList(menu, type, req);
+	}
+	
 	@RequestMapping("/user/{menu}/{type}")
 	public ModelAndView users(
 			@PathVariable("menu") String menu,
@@ -66,7 +75,7 @@ public class userController {
 			@PathVariable("type") String type,
 			HttpServletRequest req, HttpSession ses) {
 		
-		return usi.users(menu, type, req, ses);
+		return usi.msg(menu, type, req);
 	}
 	
 	@RequestMapping("/msgList/{menu}/{type}")
@@ -75,7 +84,7 @@ public class userController {
 			@PathVariable("type") String type,
 			HttpServletRequest req, HttpSession ses) {
 		
-		return usi.users(menu, type, req, ses);
+		return usi.msg(menu, type, req);
 	}
 	
 	@RequestMapping("/infoData")
@@ -91,5 +100,23 @@ public class userController {
 	@RequestMapping("/joinSes")
 	public ModelAndView joinSes(HttpServletRequest req, HttpSession session) {
 		return HttpUtil.makeJsonView(usi.joinSes(req,session));
+	}
+	
+	@RequestMapping("/changePw/{menu}/{type}")
+	public ModelAndView changePw(
+			@PathVariable("menu") String menu,
+			@PathVariable("type") String type,
+			HttpServletRequest req, HttpSession ses) {
+		
+		return usi.changePw(menu, type, req);
+	}
+	
+	@RequestMapping("/infoDel/{menu}/{type}")
+	public ModelAndView infoDel(
+			@PathVariable("menu") String menu,
+			@PathVariable("type") String type,
+			HttpServletRequest req, HttpSession ses) {
+		
+		return usi.infoDel(menu, type, req, ses);
 	}
 }

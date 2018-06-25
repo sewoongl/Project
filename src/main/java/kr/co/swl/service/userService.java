@@ -21,6 +21,21 @@ public class userService implements userServiceInterface {
 	HashMap<String, Object> param;
 	
 	@Override
+	public ModelAndView usersList(String menu, String type, HttpServletRequest req) {
+		param = new HashMap<String, Object>();
+		param.put("menu", menu);
+		param.put("type", type);
+		
+		HashMap<String, Object> map = HttpUtil.getParamMap(req);
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		
+			param.put("param",map);
+			result = udi.users(param);
+		
+		return HttpUtil.makeJsonView(result);
+	}
+	
+	@Override
 	public ModelAndView users (String menu, String type, HttpServletRequest req, HttpSession ses) {
 		param = new HashMap<String, Object>();
 		param.put("menu", menu);
@@ -45,6 +60,21 @@ public class userService implements userServiceInterface {
 		}
 		
 		return HttpUtil.makeJsonView(map); //원래값 udi.users(param)
+	}
+	
+	@Override
+	public ModelAndView msg(String menu, String type, HttpServletRequest req) {
+		param = new HashMap<String, Object>();
+		param.put("menu", menu);
+		param.put("type", type);
+		
+		HashMap<String, Object> map = HttpUtil.getParamMap(req);
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		
+			param.put("param",map);
+			result = udi.users(param);
+		
+		return HttpUtil.makeJsonView(result);
 	}
 
 	@Override
@@ -86,13 +116,44 @@ public class userService implements userServiceInterface {
 		map.put("sql", "selectOne");
 		map.put("sqlType", "swl.joinSes");
 		map = udi.users(map);
-		System.out.println(map);
+//		System.out.println(map);
 		
 //		id -> DB
 //		DB -> map
 		
 //		session.setAttribute("user", );
 		return map;
+	}
+
+	@Override
+	public ModelAndView changePw(String menu, String type, HttpServletRequest req) {
+		param = new HashMap<String, Object>();
+		param.put("menu", menu);
+		param.put("type", type);
+		
+		HashMap<String, Object> map = HttpUtil.getParamMap(req);
+		HashMap<String, Object> result = new HashMap<String, Object>();
+			param.put("param",map);
+			result = udi.users(param);
+		
+		return HttpUtil.makeJsonView(result);
+	}
+
+	@Override
+	public ModelAndView infoDel(String menu, String type, HttpServletRequest req, HttpSession ses) {
+		param = new HashMap<String, Object>();
+		param.put("menu", menu);
+		param.put("type", type);
+//		System.out.println("타입 :" +type);
+		
+		HashMap<String, Object> map = HttpUtil.getParamMap(req);
+		HashMap<String, Object> result = new HashMap<String, Object>();
+			param.put("param",map);
+			result = udi.users(param);
+			
+			ses.invalidate();
+		
+		return HttpUtil.makeJsonView(result);
 	}
 
 	
