@@ -111,35 +111,7 @@
             
             <!--  about me 시작부분 -->
             <div id="right-3">
-                <article id="about">
-                    <h1>About me</h1>
-                    <p>안녕하세요. 저는 심현섭 입니다. 거주지는 경기도 고양시이며 불러주시면 어디든지 찾아가겠습니다. 찬찬히 웹사이트를 둘러보며 저의 가치를 음미하여 주세요.</p>
-                    <br>
-                    <p>&diams;<span style="font-size: 18px;"> 심현섭</span></p>
-                    <p>&diams; 1994.04.23</p>
-                    <p>&diams; 한 줄 소개: <b>나의 롤모델은 존재하지 않는다. 하지만 누군가의 롤모델이 되고싶다."</b></p>
-                    <p>&diams; 장점: 슈퍼 초 긍정맨 &#40;살면서 단 한번도 부정적인 의견을 가져본적이 없음.&#41; </p>
-                    <p>&diams; 단점: 긍정적인 마인드 때문에 불이익이 발생함.</p>
-                    <p>&diams; 2009년 개발자 삼촌의 영향으로 IT에 깊은 관심이 생김</p>
-                    <p>&diams; 2014년 25사단 비룡부대 GOP 입대</p>
-                    <p>&diams; 2015년 25사단 비룡부대 GOP 근무중 북한 인민군 소좌와 맞담배</p>
-                    <p>&diams; 2016년 25사단 비룡부대 GOP 만기제대</p>
-                    <p>&diams; 2018년 컴퓨터공학과 졸업</p>
-                    <p>&diams; 2018년 오픈소스 <a href="https://github.com/simhyunsub" target="_blank">깃허브(Github)</a> 활동 시작</p>
-                    <p>&diams; 기술 스택</p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&diams; HTML, CSS</p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&diams; JavaScript, ES2015+, jQuery</p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&diams; SPA(React, Vue)</p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&diams; Canvas, SVG</p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&diams; PWA(ServiceWorker)</p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&diams; Crawling</p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&diams; React Native, Phonegap(Cordova)</p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&diams; Node.js, Express.js</p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&diams; Real-time(Meteor, socket.io)</p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&diams; MongoDB, MySQL, Redis</p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&diams; AWS, GCP, Heroku, iwinv, firebase</p>
-                    <p>&nbsp;&nbsp;&nbsp;&nbsp;&diams; Git, Github, Circle CI</p>
-                </article>
+                <article id="about"></article>
                     <!-- 스킬 -->
                 <article id="skills">
                     <h1>Skills Level</h1>
@@ -272,7 +244,85 @@
     </div>
 <script src="js/main.js"></script>
 <script>
+	function HTML(data){
+		$(".arc").empty();
+		for(var i=0; i<data.length; i++){
+			
+			var fileURL = data[i].fileURL;
+			var title = data[i].boardTitle;
+			var contents = data[i].boardContents;
+			
+			var html = '<div class="arc-con dls-third">';
+			html += '<div class="arc-box">';
+			html += '<div class="arc-box-img" id="java">';
+			html += '<a href="#">';
+			html += "<img src='" + fileURL + "'>";
+			html += '</a>';
+			html += '</div>';
+			html += '<div class="arc-box-text">';
+			html += '<h5 class="b_T">' + title + '</h5>';
+			html += '<p class="b_C">' + contents + '</p>';
+			html += '</div>';
+			html += '</div>';
+			html += '</div>';
+			
+			$(".arc").append(html);
+		}
+	}
 	
+	$.ajax({
+			type:"post",
+			url : "/swl/boardList"
+		}).done(function(data){
+			
+			var d = JSON.parse(data)
+			console.log("막받아온 다타:" + d)
+			var mainboard = d.mainboard;
+ 			console.log(mainboard);
+			HTML(mainboard);
+			$(".arc-con").on("click", function(){
+				
+				var index = $(".arc-con").index(this);
+				
+				var boardNo = mainboard[index].boardNo;
+				console.log("이것은 보드넘버이다:" + boardNo);
+				location.href = "/swl/resources/ex/detail.html?boardNo=" + boardNo;
+			});
+		});
+	
+	$.ajax({
+		url:"/swl/aboutList"
+	}).done(function(data){
+		
+		d = JSON.parse(data);
+		console.log(d);
+		
+		profile = d.profile;
+		resumeI = d.resumeI;
+		resumeR = d.resumeR;
+		resumeS = d.resumeS;
+		
+		$("#about").empty();
+							
+		var html = '<h1>About me</h1>';
+		html += '<p><span style="font-size: 18px;">'+ profile.name +'</span></p>';
+		html += '<p>'+ profile.birthday +'</p>';
+		
+//			var html2 = "";
+		for(var i =0; i<resumeI.length; i++){
+			html += '<p>한줄소개: <b>'+ resumeI[i].resume +'</b></p>';
+		}
+		
+		for(var i =0; i<resumeR.length; i++){
+			html += '<p>'+ resumeR[i].resume +'</p>';
+		}
+		
+		for(var i =0; i<resumeS.length; i++){
+			html += '<p>'+ resumeS[i].resume +'</p>';
+		}
+		$("#about").append(html);
+//			$("#about").append(html2);
+	});
 </script>
 
 </body>

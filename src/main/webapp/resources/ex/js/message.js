@@ -12,12 +12,12 @@ $.ajax({
 			html += "<td>" + dt[i].msgName + "</td>";
 			html += "<td>" + dt[i].msgEmail + "</td>";
 			html += "</tr>";
-		$("#msgList").prepend(html);
+		$("#msgList").append(html);
 	}
 	
     $(".titletr").on("click", function(){
     	var rows_id = $(this).attr('id');
-    	var new_msgNo = rows_id.charAt(rows_id.length-1);
+    	var new_msgNo = rows_id.substring(9);
     	
     	$.ajax({
 	    	type : "post",
