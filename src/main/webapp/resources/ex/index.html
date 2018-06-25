@@ -289,6 +289,40 @@
 				location.href = "/swl/resources/ex/detail.html?boardNo=" + boardNo;
 			});
 		});
+	
+	$.ajax({
+		url:"/swl/aboutList"
+	}).done(function(data){
+		
+		d = JSON.parse(data);
+		console.log(d);
+		
+		profile = d.profile;
+		resumeI = d.resumeI;
+		resumeR = d.resumeR;
+		resumeS = d.resumeS;
+		
+		$("#about").empty();
+							
+		var html = '<h1>About me</h1>';
+		html += '<p><span style="font-size: 18px;">'+ profile.name +'</span></p>';
+		html += '<p>'+ profile.birthday +'</p>';
+		
+//			var html2 = "";
+		for(var i =0; i<resumeI.length; i++){
+			html += '<p>한줄소개: <b>'+ resumeI[i].resume +'</b></p>';
+		}
+		
+		for(var i =0; i<resumeR.length; i++){
+			html += '<p>'+ resumeR[i].resume +'</p>';
+		}
+		
+		for(var i =0; i<resumeS.length; i++){
+			html += '<p>'+ resumeS[i].resume +'</p>';
+		}
+		$("#about").append(html);
+//			$("#about").append(html2);
+	});
 </script>
 
 </body>
