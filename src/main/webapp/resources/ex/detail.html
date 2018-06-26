@@ -10,9 +10,6 @@
     <script src="lib/jquery.min.js"></script>
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<!-- include summernote css/js -->
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
 	<link rel="shortcut icon" href="img/icon_goodee.png">
     <link rel="stylesheet" type="text/css" href="css/detail.css">
 </head>
@@ -23,102 +20,169 @@
             <!-- 카테고리 -->
             <div class="select-write-type">
             <select class="form-control" id="sel1" disabled>
-                <option disabled selected>Category</option>
-                <option selected>Java</option>
-                <option>Python</option>
-                <option>Javascript</option>
-                <option>HTML</option>
-                <option>CSS</option>
-                <option>LINUX</option>
+                <option disabled selected id="category"></option>
             </select>
                 <!-- 상세 내용 부분 -->
             </div>
-            <div class="summernote-con">
-                   <p>
-                       특징
-                        반환값이 없는 메소드는 생성자가 유일하다.
-                        생성자는 인스턴스를 생성해주는 역할을 하는 특수한 메소드라고 할 수 있다. 반환값이 없기 때문에 
-                        return도 사용하지 않고, 반환 값 타입을 메소드 정의 포함시키지도 않는다.
-
-                        클래스에는 반드시 생성자가 존재해야 한다.
-                        인스턴스 생성시 딱 한번 호출 된다.
-                        인스턴스 변수의 초기화가 목적이다.
-                        클래 이름과 동일한 이름을 가진 메소드이다.
-                        반환형이 존재하지 않는다. 즉 return이 없다.
-                        
-                        클래스명 참조변수=new 클래스명(초기화 변수)
-                   </p>
-                   
-            </div>
+            <div class="board_con"></div>
+            
             <div class="write-button-con">
                 <div id="template">
                     
                 </div>
                 <input type="button" class="btn btn-primary" id="detail-list" value="목록">
-                <input type="button" class="btn btn-primary" value="수정">
-                <input type="button" class="btn btn-primary" value="삭제">
-            </div>
-            <!-- 댓글 작성 부분 -->
-            <div class="reply-box">
-                <div class="box-top">
-                    <div class="top-left">
-                        <span>작성자</span>
-                    </div>
-                    <div class="top-right">
-                        <span>2018-05-23</span>
-                    </div>
-                </div>
-                <div class="box-middle">
-                    <textarea class="reply-content-box"></textarea>
-                </div>
-                <div class="box-bottom">
-                    <input type="button" class="btn btn-default" value="등록">
-                </div>
-            </div>
-            <!-- 작성한 댓글 리스트 -->
-            <div class="comment">
-                <div class="comment-top">
-                    <div class="comment-top-left"><span>작성자</span></div>
-                    <div class="comment-top-right"><span>2018-05-21</span></div>
-                </div>
-                <div class="comment-bottom">
-                   <div class="comment-content">
-                       <p>
-                        와 ! 자바란 이런것이군요~~ 한 수 배우고 갑니다.
-                        aaaaaaaaaaaaaaaadjsdkjsadlajsdklajsdkl
-                        asjdklasjdklasjdklasdasdlasjdlasjdlasdajskldasdasd
-                        </p>
-                    </div>
-                </div>
-                <div class="comment-btn-con">
-                    <a href="#">수정</a>
-                    <a href="#">삭제</a>
-                </div>
+                <input type="button" class="btn btn-primary" id="btnUpdate" value="수정">
+                <input type="button" class="btn btn-primary" id="btnDelete" value="삭제">
             </div>
             
-            <div class="comment">
-                <div class="comment-top">
-                    <div class="comment-top-left"><span>이세웅</span></div>
-                    <div class="comment-top-right"><span>2018-05-22</span></div>
-                </div>
-                <div class="comment-bottom">
-                   <div class="comment-content">
-                       <p>
-                        님 저보다 못하는듯~~
-                        </p>
-                    </div>
-                </div>
-                <div class="comment-btn-con">
-                    <a href="#">수정</a>
-                    <a href="#">삭제</a>
-                </div>
-            </div>
+            <!-- 댓글 작성 부분 -->
+            <form action="" id="replyBox" method="post" enctype="multipart/form-data">
+	            <div class="reply-box">
+	                <div class="box-top">
+	                    <div class="top-left">
+	                        <span id="current_writer"></span>
+	                    </div>
+	                    <div class="top-right">
+	                        <span id="clock"></span>
+	                    </div>
+	                </div>
+	                
+	                <div class="box-middle">
+	                    <textarea class="reply-content-box"></textarea>
+	                </div>
+	                
+	                <div class="box-bottom">
+	                    <input type="submit" class="btn btn-default" name="send" value="등록" onClick="window.location.reload()">
+	                </div>
+	            </div>
+            </form>
+            <!-- 작성한 댓글 리스트 -->
+            <div id="reply"></div>
         </div>
     </div>
     <script src="js/main.js"></script>
+    <script type="text/javascript">
+    boardSession();
     
-    <script>
-        
+    function getBoardNo(){
+		var data = {};
+    	var queryString = location.href.split('?');
+    	var params = queryString[1].split('&');
+    	for (var i=0; i<params.length; i++){
+    		var param = params[i].split('=');
+    		data[param[0]] = param[1];
+    	}
+    	return data.boardNo;
+	}
+    
+    function currentTime(){
+    	var clock = document.getElementById("clock");
+    	var now = new Date();
+    	var nowTime = now.getFullYear() + "-" + (now.getMonth()+1) + "-" + now.getDate();
+    	
+    	clock.innerHTML = nowTime;
+    	setTimeout("currentTime()",1000);
+    }
+    window.onload = function() {
+    	currentTime()
+    }
+    
+    var boardNo = getBoardNo();
+// 	console.log(boardNo);
+	
+	$.ajax({
+		type:"post",
+		url:"/swl/boardDetail",
+		data:{"boardNo" : boardNo}
+	}).done(function(data){
+		
+		d = JSON.parse(data);
+		var boardDetail = d.boardDetail;
+		var category = boardDetail.category;
+		var boardContents = boardDetail.boardContents;
+		
+		$("#category").text(category);
+		$(".board_con").text(boardContents);
+	});
+	
+	function boardSession(){
+		$.ajax({
+			type : "post",
+			url : "/swl/boardData"
+		}).done(function(data){
+			var d = JSON.parse(data).user;
+// 			console.log(d);
+			if (d.level != 1){
+				$("#btnUpdate").css("display", "none");
+				$("#btnDelete").hide();
+			}else{
+				$("#btnDelete").on("click", function(){
+					console.log("클릭")
+	    			$.ajax({
+	    				url : "/swl/boardDelete",
+	    				data : {"boardNo" : boardNo}
+	    			}).done(function(data){
+	    				
+						var d = JSON.parse(data)
+// 						console.log(d);
+						if(d.status == 1){
+							location.href = "index.html";	
+						}
+	    			});
+	    		});
+			}
+			if(d != null){
+				$("#current_writer").text(d.userName);
+				
+				$("#replyBox").submit(function(e){
+					e.preventDefault();
+					var userNo = d.userNo;
+					var replyContents = $(".reply-content-box").val();
+// 					console.log(replyContents);
+// 					console.log(boardNo);
+// 					console.log(userNo);
+					$.ajax({
+						type : "post",
+						url : "/swl/replyInsert",
+						data : {
+							"userNo" : userNo,
+							"boardNo" : boardNo,
+							"replyContents" : replyContents
+							}
+					}).done(function(){
+						alert("메시지가 전송 되었습니다.");
+						location.href = 'detail.html';
+					});
+				});
+			}
+			console.log(d.userName);
+			$.ajax({
+				type : "post",
+				url : "/swl/replyList"
+			}).done(function(data){
+				var rd = JSON.parse(data).replyList;
+				console.log("들어옴")
+				console.log(rd);
+				$("#reply").empty();
+				if(d.boardNo = rd.boardNo){
+			 		for(var i = 0; i < rd.length; i++){
+			 			var html = "<div class='comment'><div class='comment-top'>";
+			 				html += "<div class='comment-top-left'><span>" + d.userName + "</span></div>";
+			 				html += "<div class='comment-top-right'><span>" + rd[i].regDate + "</span></div></div>";
+			 				html += "<div class='comment-bottom'><div class='comment-content'><p>" + rd[i].replyContents + "</p>";
+			 				html += "</div></div><div class='comment-btn-con'><a href='#'>수정</a><a href=''#'>삭제</a></div>";
+			 				html += "</div>";
+			 			$("#reply").append(html);
+			 		}
+				}
+			});
+		});
+	}
+	
+	
+
+	
+	
     </script>
 </body>
 </html>

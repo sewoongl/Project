@@ -31,6 +31,10 @@
 		select * from users where id = #{id} and delYn ='N'
 	</select>
 	
+	<select id="replyList" resultType="HashMap">
+		select * from `reply` where delYn = 'N'		 
+	</select>
+	
 <!-- =====================================Resume/Profile============================================== -->
 	<select id="resumeI" resultType="HashMap">
 		select * from resume where delYn = 'N' and type = 'I'
@@ -48,13 +52,17 @@
 		select * from profile where profileNo = 1
 	</select>
 
-<!-- =====================================보드 리스트 불러오는부분============================================== -->	
+<!-- =====================================보드 부분============================================== -->	
 	<select id="mainboard" resultType="HashMap">
 		select b.boardNo, boardTitle, boardContents, fileURL 
 			from board as b
 			left outer join files as f
 			on (b.boardNo = f.boardNo) where b.delYn = 'N'
-	</select>	
+	</select>
+	
+	<select id="boardDetail" parameterType="HashMap" resultType="HashMap">
+		select * from board where boardNo = #{boardNo}
+	</select>
 	
 <!-- insert 문 -->
 	<insert id="join" parameterType="HashMap">
@@ -92,6 +100,13 @@
 			(#{boardTitle}, #{boardContents}, #{userNo}, #{category}, DATE_FORMAT(NOW(),'%Y%m%d'));
 	</insert>
 	
+	<insert id="replyInsert" parameterType="HashMap">
+		insert into `reply` 
+			(userNo, boardNo, `replyContents`, regDate) 
+		values 
+			(#{userNo}, #{boardNo}, #{replyContents}, DATE_FORMAT(NOW(),'%Y%m%d'))
+	</insert>
+	
 <!-- update 문 -->	
 	<update id="userDel" parameterType="HashMap">
 	  	update `users`
@@ -122,5 +137,11 @@
   			set delYn = 'Y'
   		where userNo = #{userNo}
   	</update>
+  	
+  	<update id="boardDelete" parameterType="HashMap">
+		update board
+		set delYn = 'Y'
+		where boardNo = #{boardNo}
+	</update>
   	
 </mapper>

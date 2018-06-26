@@ -119,4 +119,17 @@ public class userController {
 		
 		return usi.infoDel(menu, type, req, ses);
 	}
+	
+	@RequestMapping("/boardData")
+	public ModelAndView boardData(HttpSession ses) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		Object user = ses.getAttribute("user");
+		map.put("user", user);
+		System.out.println("boardData :" + map);
+		System.out.println("user :" + user);
+		
+		return HttpUtil.makeJsonView(map);
+	}
+	
 }
