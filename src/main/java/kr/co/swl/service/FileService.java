@@ -37,7 +37,7 @@ public class FileService implements FileServiceInterface {
 //				String path = "D://eclipse/workspace/Project/src/main/webapp/resources/" + dir + "/";
 				String path = "/var/www/html/resources/" + dir + "/"; 
 //				String path = req.getSession().getServletContext().getRealPath("/") + "resources/" + dir + "/";
-				String dns = "http://gudi.iptime.org:10071/swl/";
+				String dns = "http://gudi.iptime.org:10070/";
 				
 				File dirF = new File(path);
 				

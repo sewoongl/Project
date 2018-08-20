@@ -47,7 +47,8 @@ public class HomeService implements HomeServiceInterface {
 					String fileName = sha256(fileFullName.substring(0, fileFullName.lastIndexOf(".")));
 					String fileExtension = fileFullName.substring(fileFullName.lastIndexOf("."));
 					String Path = "";
-					           Path += "D://eclipse/workspace/Project/src/main/webapp/";
+//					           Path += "D://eclipse/workspace/Project/src/main/webapp/";
+					           Path += "/var/www/html/resources/ex/swl/"; 
 //					           Path += req.getSession().getServletContext().getRealPath("/");
 					String Path2 = "resources/upload/" + today + "/";
 					File dirF = new File(Path + Path2);
